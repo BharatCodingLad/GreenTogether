@@ -1,0 +1,50 @@
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.video-logo {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.video-logo video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    scale: 1.2;
+}
+
+.logo-text {
+    font-size: 1.4rem;  /* Reduced from 1.8rem */
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: flex;
+    gap: 3px;
+}
+
+.green {
+    color: #4CAF50;
+}
+
+.together {
+    color: #ff69b4;
+}
+
+/* Add glow effect */
+.video-logo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
