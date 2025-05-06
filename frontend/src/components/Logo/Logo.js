@@ -10,10 +10,10 @@ const Logo = () => {
                     <source src={logoVideo} type="video/mp4" />
                 </video>
             </div>
-            <span className="logo-text">
+            <div className="logo-text">
                 <span className="green">Green</span>
                 <span className="together">Together</span>
-            </span>
+            </div>
         </div>
     );
 };

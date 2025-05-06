@@ -5,8 +5,8 @@
 }
 
 .video-logo {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     position: relative;
     overflow: hidden;
     border-radius: 50%;
@@ -22,11 +22,20 @@
 }
 
 .logo-text {
-    font-size: 1.4rem;  /* Reduced from 1.8rem */
+    font-size: 1.4rem;
     font-weight: 600;
-    letter-spacing: 1px;
     display: flex;
-    gap: 3px;
+    gap: 3px;  /* Initial gap between Green and Together */
+    transition: gap 0.3s ease;  /* Add smooth transition */
+}
+
+.logo:hover .logo-text {
+    gap: 0px;  /* Remove gap on hover */
+}
+
+.green, .together {
+    display: inline-block;
+    font-size: 1.4rem;
 }
 
 .green {

@@ -1,0 +1,141 @@
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #000;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.loading-screen.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Loading content container */
+.loading-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Logo container */
+.loading-logo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Logo styles */
+.loading-logo {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+    transition: all 0.8s ease;
+}
+
+.loading-logo video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    scale: 1.2;
+}
+
+/* Text styles */
+.logo-text {
+    font-size: 3.5rem;
+    font-weight: 600;
+    display: flex;
+    gap: 3rem;
+    transition: all 0.8s ease;
+}
+
+.green { color: #4CAF50; }
+.together { color: #ff69b4; }
+
+/* Text join animation */
+.loading-logo-container.text-joined .logo-text {
+    gap: 0;
+}
+
+/* Loading bar */
+.loading-bar {
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.loading-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #4CAF50, #ff69b4);
+    animation: loadingProgress 1.5s ease infinite;
+}
+
+/* Move to navbar animation */
+.loading-logo-container.move-to-nav {
+    top: 1rem;
+    left: 4rem;
+    transform: translate(0, 0);
+}
+
+.loading-logo-container.move-to-nav .loading-logo {
+    width: 35px;
+    height: 35px;
+}
+
+.loading-logo-container.move-to-nav .logo-text {
+    font-size: 1.4rem;
+    gap: 0;
+}
+
+/* Animations */
+@keyframes loadingProgress {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.loading-bar.fade-out {
+    opacity: 0;
+}
+
+/* TV shutdown effect */
+.tv-effect {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    transform-origin: center;
+    animation: tvShutdown 0.5s ease-in forwards;
+}
+
+@keyframes tvShutdown {
+    0% { transform: scaleY(0); }
+    50% { transform: scaleY(100); background: #fff; }
+    100% { transform: scaleY(100); background: #000; }
+}
