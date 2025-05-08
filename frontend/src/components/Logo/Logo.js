@@ -11,8 +11,7 @@ const Logo = () => {
                 </video>
             </div>
             <div className="logo-text">
-                <span className="green">Green</span>
-                <span className="together">Together</span>
+                <span className="green">Green<span className='together'>Together</span></span>
             </div>
         </div>
     );

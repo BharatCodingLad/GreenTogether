@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  background-image: url("../../images/image1.png");
+  min-height: 100vh;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.parallax-wrapper {
+  width: 100vw;
+  overflow-x: hidden;
+}
+.content_heading {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-size: 27px;
+  font-family: "Lato", sans-serif;
+}
+.content_style {
+  background-color: #313534;
+  color: white;
+  padding: 20px;
+}
+.section_one {
+  background-color: #f4f4f4;
+  font-family: "Lato", sans-serif;
+  color: #666;
+  text-transform: uppercase;
+  word-spacing: 2px;
+  letter-spacing: 3px;
+  padding: 20px;
+}
+.section_one,
+h2 {
+  text-align: center;
+  padding: 20px;
+}
+.image2 {
+  background-image: url("../../images/image2.png");
+  min-height: 400px;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.image2_content {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 50px;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 8px;
+  word-spacing: 8px;
+}
+.image2_style {
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(5px);
+  color: #f4f4f4;
+  padding: 20px;
+}
+.section_two {
+  background-color: gray;
+  font-family: "Lato", sans-serif;
+  color: #f4f4f4;
+  text-transform: uppercase;
+  word-spacing: 2px;
+  letter-spacing: 3px;
+  padding: 20px;
+}
+.section_two,
+h2 {
+  text-align: center;
+  padding: 20px;
+}
+.image3 {
+  background-image: url("../../images/image3.png");
+  min-height: 400px;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.image3_content {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 8px;
+  word-spacing: 8px;
+  font-size: 50px;
+  text-transform: uppercase;
+  font-family: "Lato", sans-serif;
+}
+.image3_style {
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(10px);
+  color: #f4f4f4;
+  padding: 20px;
+}
+.section_three {
+  background-color: #666;
+  padding: 20px;
+  text-transform: uppercase;
+  color: #313534;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 3px;
+  word-spacing: 2px;
+}
+.section_three,
+h2 {
+  text-align: center;
+  padding: 20px;
+}

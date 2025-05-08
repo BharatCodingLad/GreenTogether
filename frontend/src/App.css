@@ -1265,3 +1265,37 @@ p {
 .form-field {
     transition: all 0.3s ease;
 }
+
+/* Main content styles */
+.main-content {
+    padding: 6rem 2rem 2rem;
+    min-height: 100vh;
+    color: white;
+    text-align: center;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.main-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #4CAF50, #ff69b4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: slideUp 0.8s ease forwards;
+}
+
+.main-content p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    animation: slideUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

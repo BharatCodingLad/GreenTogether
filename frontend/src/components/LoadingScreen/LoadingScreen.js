@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './LoadingScreen.css';
 import logoVideo from '../../assets/videos/Animation - 1746461278549.mp4';
 
-const LoadingScreen = ({ active }) => {
+const LoadingScreen = ({ active, onAnimationComplete }) => {
     const [textJoined, setTextJoined] = useState(false);
     const [loadingComplete, setLoadingComplete] = useState(false);
-    const [moveToNav, setMoveToNav] = useState(false);
+    // Remove moveToNav state and related logic
 
     useEffect(() => {
         if (active) {
@@ -17,8 +17,12 @@ const LoadingScreen = ({ active }) => {
             // Step 3: Complete loading bar animations (3 cycles)
             const loadTimer = setTimeout(() => setLoadingComplete(true), 4500);
             
-            // Step 4: Move to navbar position
-            const moveTimer = setTimeout(() => setMoveToNav(true), 5000);
+            // Step 4: Call animation complete callback without moving logo
+            const moveTimer = setTimeout(() => {
+                if (onAnimationComplete) {
+                    onAnimationComplete();
+                }
+            }, 5000);
 
             return () => {
                 clearTimeout(textTimer);
@@ -26,10 +30,10 @@ const LoadingScreen = ({ active }) => {
                 clearTimeout(moveTimer);
                 setTextJoined(false);
                 setLoadingComplete(false);
-                setMoveToNav(false);
+                // setMoveToNav(false); // removed
             };
         }
-    }, [active]);
+    }, [active, onAnimationComplete]);
 
     return (
         <div className={`loading-screen ${active ? 'active' : ''}`}>
@@ -37,8 +41,8 @@ const LoadingScreen = ({ active }) => {
             <div className="loading-content">
                 <div 
                     className={`loading-logo-container 
-                        ${textJoined ? 'text-joined' : ''} 
-                        ${moveToNav ? 'move-to-nav' : ''}`}
+                        ${textJoined ? 'text-joined' : ''}`}
+                        // removed moveToNav class
                 >
                     <div className="loading-logo">
                         <video autoPlay loop muted playsInline>
@@ -50,11 +54,9 @@ const LoadingScreen = ({ active }) => {
                         <span className="together">Together</span>
                     </div>
                 </div>
-                {!moveToNav && (
-                    <div className={`loading-bar ${loadingComplete ? 'fade-out' : ''}`}>
-                        <div className="loading-progress"></div>
-                    </div>
-                )}
+                <div className={`loading-bar ${loadingComplete ? 'fade-out' : ''}`}>
+                    <div className="loading-progress"></div>
+                </div>
             </div>
         </div>
     );
