@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import UserDashboard from './components/UserDashboard/UserDashboard';
 import './App.css';
 
 function App() {
     const [isUser, setIsUser] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
         setTimeout(() => {
             setIsLoading(false);
-        }, 6000);
+            setIsLoggedIn(true);
+        }, 2000);
     };
 
     const toggleMode = () => {
         setIsSignUp(!isSignUp);
     };
+
+    if (isLoggedIn) {
+        return <UserDashboard />;
+    }
 
     return (
         <div className={`app ${!isUser ? 'vendor-mode' : ''}`}>
