@@ -11,15 +11,14 @@ function App() {
     const [isSignUp, setIsSignUp] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
-    const [username, setUsername] = useState(''); // Add username state
+    const [username, setUsername] = useState('');
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Form submitted');
         setIsLoading(true);
         setIsAnimationComplete(false);
-        // Do not set isAuthenticated here; wait for animation to complete
-        // setIsAuthenticated(true);
         console.log('isLoading set to true, isAnimationComplete set to false');
     };
 
@@ -27,7 +26,7 @@ function App() {
         console.log('Animation complete');
         setIsAnimationComplete(true);
         setIsLoading(false);
-        setIsAuthenticated(true); // Set authenticated after animation completes
+        setIsAuthenticated(true);
         console.log('isAnimationComplete set to true, isLoading set to false, isAuthenticated set to true');
     };
 
@@ -35,8 +34,12 @@ function App() {
         setIsSignUp(!isSignUp);
     };
 
+    const handleMouseMove = (event) => {
+        setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
     return (
-        <div className={`app ${!isUser ? 'vendor-mode' : ''}`}>
+        <div className={`app ${!isUser ? 'vendor-mode' : ''}`} onMouseMove={handleMouseMove}>
             {!isAuthenticated && (
                 <>
                     <LoadingScreen active={isLoading} onAnimationComplete={handleAnimationComplete} />
@@ -119,7 +122,7 @@ function App() {
             {isAuthenticated && isAnimationComplete && (
                 <>
                     <MainNavbar username={username} />
-                    <ParallaxBackground />
+                    <ParallaxBackground mouseX={mousePosition.x} mouseY={mousePosition.y} />
                 </>
             )}
         </div>

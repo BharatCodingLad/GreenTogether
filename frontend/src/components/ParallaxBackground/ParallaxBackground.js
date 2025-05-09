@@ -5,11 +5,20 @@ import Spline from '@splinetool/react-spline';
 const ParallaxBackground = () => {
   return (
     <div className="parallax-wrapper">
-      <div className="container">
-        <Spline scene="https://prod.spline.design/nBQNpgz0XGvJNTsa/scene.splinecode" />
-        <div className="content_heading">
-          <span className="content_style">Parallax Website</span>
+      {/* Main container with flex layout to position left text and isolated spline robot side by side */}
+      <div className="container parallax-flex">
+        {/* Left side text added as per user request */}
+        <div className="spline-container">
+          <Spline 
+            scene="https://prod.spline.design/nBQNpgz0XGvJNTsa/scene.splinecode" 
+          />
         </div>
+        <div className="content_heading">
+          <span className="content_style">Hi,</span>
+          <span className="content_style">Welcome To GreenTogether</span>
+        </div>
+        {/* Isolated container for spline robot to avoid style interference */}
+        
       </div>
       <div className="section_one">
         <h2>Section One</h2>

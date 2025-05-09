@@ -1,6 +1,12 @@
+/* Existing styles */
 * {
   margin: 0;
   padding: 0;
+}
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
 }
 .container {
   background-image: url("../../images/image1.png");
@@ -124,4 +130,29 @@ h2 {
 h2 {
   text-align: center;
   padding: 20px;
+}
+
+/* Flex container for left text and isolated spline robot */
+.parallax-flex {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Isolated container for spline robot to avoid style interference */
+.spline-container {
+  flex: 1;
+  min-width: 300px;
+  min-height: 400px;
+}
+.left-text {
+  font-size: 3rem;
+  font-family: "Lato", sans-serif;
+  color: #e91e63; /* pink color */
+  background-color: #000; /* black background */
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  flex: 0 0 auto;
+  user-select: none;
+  white-space: nowrap;
 }
