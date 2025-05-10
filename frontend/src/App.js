@@ -58,6 +58,17 @@ function App() {
         console.log('isAnimationComplete set to true, isLoading set to false, isAuthenticated set to true');
     };
 
+    const handleLogout = () => {
+        // Reset all authentication states
+        setIsAuthenticated(false);
+        setIsAnimationComplete(false);
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setError('');
+        setCurrentPage('home');
+    };
+
     const toggleMode = () => {
         setIsSignUp(!isSignUp);
     };
@@ -165,6 +176,7 @@ function App() {
                         username={username} 
                         currentPage={currentPage}
                         onPageChange={handlePageChange}
+                        onLogout={handleLogout}
                     />
                     {currentPage === 'home' && (
                         <>

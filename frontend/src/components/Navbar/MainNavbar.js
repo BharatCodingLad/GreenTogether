@@ -1,42 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Logo from '../Logo/Logo';
 import './MainNavbar.css';
 
-const MainNavbar = ({ username, currentPage, onPageChange }) => {
+const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
     const displayName = username ? username.split('@')[0] : 'User';
-    const [activeSection, setActiveSection] = useState('home');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
         };
 
-        const handleIntersection = (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const sectionId = entry.target.id;
-                    if (sectionId === 'hero') {
-                        setActiveSection('home');
-                    }
-                }
-            });
-        };
-
-        const observer = new IntersectionObserver(handleIntersection, observerOptions);
-
-        // Observe the hero section
-        const heroSection = document.getElementById('hero');
-        if (heroSection) observer.observe(heroSection);
-
+        document.addEventListener('mousedown', handleClickOutside);
         return () => {
-            if (heroSection) observer.unobserve(heroSection);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
     const handleNavigation = (page) => {
         onPageChange(page);
+    };
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleLogout = () => {
+        // Clear local storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        
+        // Close dropdown
+        setIsDropdownOpen(false);
+        
+        // Notify parent component
+        if (onLogout) {
+            onLogout();
+        }
+    };
+
+    const handleViewProfile = () => {
+        // Add view profile logic here
+        console.log('Viewing profile...');
+        setIsDropdownOpen(false);
     };
 
     return (
@@ -61,9 +70,36 @@ const MainNavbar = ({ username, currentPage, onPageChange }) => {
                     Contact
                 </button>
             </div>
-            <div className="nav-right">
+            <div className="nav-right" ref={dropdownRef}>
                 <span className="username">{displayName}</span>
-                <div className="user-dp-emoji" title="User Emoji" role="img" aria-label="User Emoji">🌿</div>
+                <div 
+                    className="user-dp-emoji" 
+                    title="User Menu" 
+                    role="button" 
+                    aria-label="User Menu"
+                    onClick={toggleDropdown}
+                >
+                    🌿
+                </div>
+                {isDropdownOpen && (
+                    <div className="dropdown-menu">
+                        <button className="dropdown-item" onClick={handleViewProfile}>
+                            <span className="dropdown-icon">🫂</span>
+                            <div className="dropdown-text">
+                                <span className="dropdown-label">View Profile</span>
+                                <span className="dropdown-description">Manage your account</span>
+                            </div>
+                        </button>
+                        <div className="dropdown-divider"></div>
+                        <button className="dropdown-item" onClick={handleLogout}>
+                            <span className="dropdown-icon">🏃</span>
+                            <div className="dropdown-text">
+                                <span className="dropdown-label">Log Out</span>
+                                <span className="dropdown-description">Sign out of your account</span>
+                            </div>
+                        </button>
+                    </div>
+                )}
             </div>
         </nav>
     );
