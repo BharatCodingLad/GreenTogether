@@ -3,35 +3,22 @@ import './ParallaxBackground.css';
 import Spline from '@splinetool/react-spline';
 
 const ParallaxBackground = () => {
-  const scrollToAbout = (e) => {
-    e.preventDefault();
-    const aboutSection = document.getElementById('about');
-    if (!aboutSection) return;
-
-    // Get the navbar element
-    const navbar = document.querySelector('.main-navbar');
-    const navbarHeight = navbar ? navbar.offsetHeight : 80;
-
-    // Calculate the target position
-    const targetPosition = aboutSection.offsetTop - navbarHeight;
-
-    // Scroll to the target position
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
-    });
+  const scrollToAbout = () => {
+    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <div className="parallax-wrapper">
       {/* First Section - Hero */}
       <div className="container">
+        {/* Spline Container - Full Page Background */}
         <div className="spline-container">
           <Spline 
             scene="https://prod.spline.design/nBQNpgz0XGvJNTsa/scene.splinecode" 
           />
         </div>
 
+        {/* Introduction Section - Overlaid */}
         <div className="intro-section">
           <h1 className="intro-title">Welcome to <span className="highlight">GreenTogether</span></h1>
           <p className="intro-description">
@@ -58,51 +45,45 @@ const ParallaxBackground = () => {
       </div>
 
       {/* Second Section - Features */}
-      <div id="services" className="features-section">
+      <div className="features-section">
         <h2 className="section-title">Our Green Solutions</h2>
-        <p className="section-subtitle">Discover how we're making a difference in creating a sustainable future</p>
+        <p className="section-subtitle">Discover how we're making a difference</p>
         
         <div className="features-grid">
           <div className="feature-card">
             <div className="feature-icon">🌱</div>
             <h3>Carbon Footprint Tracking</h3>
-            <p>Monitor and reduce your environmental impact with our advanced tracking tools and real-time analytics.</p>
-            <span className="learn-more">Learn More →</span>
+            <p>Monitor and reduce your environmental impact with our advanced tracking tools.</p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon">💡</div>
             <h3>Smart Energy Solutions</h3>
-            <p>Optimize your energy consumption with AI-powered recommendations and automated efficiency controls.</p>
-            <span className="learn-more">Learn More →</span>
+            <p>Optimize your energy consumption with AI-powered recommendations.</p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon">🔄</div>
             <h3>Recycling Management</h3>
-            <p>Streamline your recycling process with our comprehensive waste management system and tracking tools.</p>
-            <span className="learn-more">Learn More →</span>
+            <p>Streamline your recycling process with our comprehensive waste management system.</p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon">🌍</div>
             <h3>Community Initiatives</h3>
-            <p>Connect with like-minded individuals and participate in local green projects and sustainability events.</p>
-            <span className="learn-more">Learn More →</span>
+            <p>Connect with like-minded individuals and participate in local green projects.</p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon">📊</div>
             <h3>Sustainability Reports</h3>
-            <p>Generate detailed reports on your environmental impact and track your progress towards sustainability goals.</p>
-            <span className="learn-more">Learn More →</span>
+            <p>Generate detailed reports on your environmental impact and improvements.</p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon">🤝</div>
             <h3>Partner Network</h3>
-            <p>Access our network of sustainable businesses and environmental experts for collaboration opportunities.</p>
-            <span className="learn-more">Learn More →</span>
+            <p>Access our network of sustainable businesses and environmental experts.</p>
           </div>
         </div>
       </div>
@@ -181,32 +162,6 @@ const ParallaxBackground = () => {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-links">
-            <a href="/privacy" className="footer-link">Privacy Policy</a>
-            <a href="/terms" className="footer-link">Terms of Service</a>
-            <a href="/contact" className="footer-link">Contact Us</a>
-          </div>
-          <div className="social-links">
-            <a href="https://twitter.com/greentogether" target="_blank" rel="noopener noreferrer" className="social-link">
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a href="https://linkedin.com/company/greentogether" target="_blank" rel="noopener noreferrer" className="social-link">
-              <i className="fab fa-linkedin"></i>
-            </a>
-            <a href="https://facebook.com/greentogether" target="_blank" rel="noopener noreferrer" className="social-link">
-              <i className="fab fa-facebook"></i>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>© {new Date().getFullYear()} GreenTogether. All rights reserved.</p>
-            <p className="footer-tagline">Building a sustainable future together</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
