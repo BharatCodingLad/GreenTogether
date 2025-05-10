@@ -1299,3 +1299,14 @@ p {
         opacity: 1;
     }
 }
+
+.error-message {
+    color: #ff3860;
+    background-color: #fff5f5;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #ff3860;
+}

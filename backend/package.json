@@ -1,0 +1,27 @@
+{
+  "name": "greentogether-backend",
+  "version": "1.0.0",
+  "description": "Backend for GreenTogether environmental sustainability project",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "npx nodemon src/index.js",
+    "test": "jest",
+    "build": "cd ../frontend && npm install && npm run build",
+    "dev:full": "npx concurrently \"npm run dev\" \"cd ../frontend && npm start\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.6.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1"
+  }
+}

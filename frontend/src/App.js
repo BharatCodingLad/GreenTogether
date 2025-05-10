@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Navbar from './components/Navbar/Navbar';
 import MainNavbar from './components/Navbar/MainNavbar';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import ParallaxBackground from './components/ParallaxBackground/ParallaxBackground';
 import './App.css';
+
+// API base URL
+const API_URL = 'http://localhost:4000/api';
 
 function App() {
     const [isUser, setIsUser] = useState(true);
@@ -12,14 +16,35 @@ function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted');
+        setError('');
         setIsLoading(true);
         setIsAnimationComplete(false);
-        console.log('isLoading set to true, isAnimationComplete set to false');
+
+        try {
+            const endpoint = isSignUp ? '/auth/register' : '/auth/login';
+            const response = await axios.post(`${API_URL}${endpoint}`, {
+                email,
+                password
+            });
+
+            // Store the token in localStorage
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            
+            setUsername(response.data.user.username);
+            setIsLoading(true);
+            setIsAnimationComplete(false);
+        } catch (err) {
+            setError(err.response?.data?.message || 'An error occurred');
+            setIsLoading(false);
+        }
     };
 
     const handleAnimationComplete = () => {
@@ -50,21 +75,24 @@ function App() {
                                 <div className="signin-signup">
                                     <form className="login-form" onSubmit={handleSubmit}>
                                         <h2>Sign In</h2>
+                                        {error && <div className="error-message">{error}</div>}
                                         <div className="form-field">
                                             <input 
-                                                type="text" 
+                                                type="email" 
                                                 placeholder=" "
                                                 required 
-                                                value={username}
-                                                onChange={(e) => setUsername(e.target.value)}
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
                                             />
-                                            <span className="placeholder">Username</span>
+                                            <span className="placeholder">Email</span>
                                         </div>
                                         <div className="form-field">
                                             <input 
                                                 type="password" 
                                                 placeholder=" "
                                                 required 
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
                                             />
                                             <span className="placeholder">Password</span>
                                         </div>
@@ -73,19 +101,24 @@ function App() {
 
                                     <form className="signup-form" onSubmit={handleSubmit}>
                                         <h2>Create Account</h2>
+                                        {error && <div className="error-message">{error}</div>}
                                         <div className="form-field">
                                             <input 
-                                                type="text" 
+                                                type="email" 
                                                 placeholder=" "
                                                 required 
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
                                             />
-                                            <span className="placeholder">Username</span>
+                                            <span className="placeholder">Email</span>
                                         </div>
                                         <div className="form-field">
                                             <input 
                                                 type="password" 
                                                 placeholder=" "
                                                 required 
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
                                             />
                                             <span className="placeholder">Password</span>
                                         </div>
