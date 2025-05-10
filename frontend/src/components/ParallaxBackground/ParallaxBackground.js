@@ -8,18 +8,18 @@ const ParallaxBackground = () => {
   };
 
   return (
-    <div className="parallax-wrapper">
+    <div className="parallax-wrapper" id="parallax">
       {/* First Section - Hero */}
-      <div className="container">
+      <div className="container" id="hero">
         {/* Spline Container - Full Page Background */}
-        <div className="spline-container">
+        <div className="spline-container" id="spline">
           <Spline 
             scene="https://prod.spline.design/nBQNpgz0XGvJNTsa/scene.splinecode" 
           />
         </div>
 
         {/* Introduction Section - Overlaid */}
-        <div className="intro-section">
+        <div className="intro-section" id="intro">
           <h1 className="intro-title">Welcome to <span className="highlight">GreenTogether</span></h1>
           <p className="intro-description">
             Join us in our mission to create a sustainable future. Together, we can make 
@@ -45,42 +45,42 @@ const ParallaxBackground = () => {
       </div>
 
       {/* Second Section - Features */}
-      <div className="features-section">
+      <div className="features-section" id="features">
         <h2 className="section-title">Our Green Solutions</h2>
         <p className="section-subtitle">Discover how we're making a difference</p>
         
-        <div className="features-grid">
-          <div className="feature-card">
+        <div className="features-grid" id="grid">
+          <div className="feature-card" id="card1">
             <div className="feature-icon">🌱</div>
             <h3>Carbon Footprint Tracking</h3>
             <p>Monitor and reduce your environmental impact with our advanced tracking tools.</p>
           </div>
 
-          <div className="feature-card">
+          <div className="feature-card" id="card2">
             <div className="feature-icon">💡</div>
             <h3>Smart Energy Solutions</h3>
             <p>Optimize your energy consumption with AI-powered recommendations.</p>
           </div>
 
-          <div className="feature-card">
+          <div className="feature-card" id="card3">
             <div className="feature-icon">🔄</div>
             <h3>Recycling Management</h3>
             <p>Streamline your recycling process with our comprehensive waste management system.</p>
           </div>
 
-          <div className="feature-card">
+          <div className="feature-card" id="card4">
             <div className="feature-icon">🌍</div>
             <h3>Community Initiatives</h3>
             <p>Connect with like-minded individuals and participate in local green projects.</p>
           </div>
 
-          <div className="feature-card">
+          <div className="feature-card" id="card5">
             <div className="feature-icon">📊</div>
             <h3>Sustainability Reports</h3>
             <p>Generate detailed reports on your environmental impact and improvements.</p>
           </div>
 
-          <div className="feature-card">
+          <div className="feature-card" id="card6">
             <div className="feature-icon">🤝</div>
             <h3>Partner Network</h3>
             <p>Access our network of sustainable businesses and environmental experts.</p>
@@ -90,8 +90,8 @@ const ParallaxBackground = () => {
 
       {/* Third Section - About Us */}
       <div id="about" className="about-section">
-        <div className="about-content">
-          <div className="about-text-container">
+        <div className="about-content" id="content">
+          <div className="about-text-container" id="text">
             <h2 className="about-title">About <span className="highlight">GreenTogether</span></h2>
             <div className="about-description">
               <p className="animate-text">
@@ -110,24 +110,24 @@ const ParallaxBackground = () => {
                 for all.
               </p>
             </div>
-            <div className="stats-container">
-              <div className="stat-item animate-up">
+            <div className="stats-container" id="stats">
+              <div className="stat-item animate-up" id="stat1">
                 <span className="stat-number">10K+</span>
                 <span className="stat-label">Active Users</span>
               </div>
-              <div className="stat-item animate-up delay-1">
+              <div className="stat-item animate-up delay-1" id="stat2">
                 <span className="stat-number">50+</span>
                 <span className="stat-label">Green Projects</span>
               </div>
-              <div className="stat-item animate-up delay-2">
+              <div className="stat-item animate-up delay-2" id="stat3">
                 <span className="stat-number">100+</span>
                 <span className="stat-label">Partner Companies</span>
               </div>
             </div>
           </div>
           
-          <div className="timeline">
-            <div className="timeline-item">
+          <div className="timeline" id="timeline">
+            <div className="timeline-item" id="time1">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
                 <h3>Our Beginning</h3>
@@ -135,7 +135,7 @@ const ParallaxBackground = () => {
                 <div className="timeline-icon">🌱</div>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" id="time2">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
                 <h3>Community Growth</h3>
@@ -143,7 +143,7 @@ const ParallaxBackground = () => {
                 <div className="timeline-icon">🌍</div>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" id="time3">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
                 <h3>Innovation</h3>
@@ -151,7 +151,7 @@ const ParallaxBackground = () => {
                 <div className="timeline-icon">💡</div>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" id="time4">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
                 <h3>Global Impact</h3>
