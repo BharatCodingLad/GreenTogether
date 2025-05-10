@@ -1,55 +1,64 @@
 .main-navbar {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: rgba(15, 32, 39, 0.95);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  width: 100%;
-  top: 0;
+  padding: 0 2rem;
   z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-left {
-  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .nav-center {
-  flex: 2;
   display: flex;
-  justify-content: center;
   gap: 2rem;
 }
 
 .nav-option {
-  background: transparent;
+  background: none;
   border: none;
-  color: #ff69b4;
+  color: #ffffff;
   font-size: 1rem;
   cursor: pointer;
-  position: relative;
   padding: 0.5rem 1rem;
-  border-radius: 25px;
-  transition: all 0.4s ease;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
   overflow: hidden;
 }
 
+/* Tubelight hover effect */
 .nav-option::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 50%;
   width: 0;
   height: 2px;
-  background: #ff69b4;
+  background: #4CAF50;
   transform: translateX(-50%);
   transition: width 0.4s ease;
-  box-shadow: 0 0 2px white, 0 0 4px white, 0 0 6px white;
+  box-shadow: 
+    0 0 2px white,
+    0 0 4px white,
+    0 0 6px white;
   filter: brightness(1.1);
 }
 
+/* Enhanced trapezoid light effect */
 .nav-option::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 2px;
   left: 50%;
@@ -63,8 +72,7 @@
 }
 
 .nav-option:hover {
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+  color: #4CAF50;
 }
 
 .nav-option:hover::before {
@@ -74,56 +82,114 @@
 .nav-option:hover::after {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    180deg,
+  background: linear-gradient(180deg, 
     rgba(255, 255, 255, 0.5) 0%,
     rgba(255, 255, 255, 0.3) 40%,
     rgba(255, 255, 255, 0.1) 100%
   );
 }
 
+/* Active state with same animation */
+.nav-option.active {
+  color: #4CAF50;
+}
+
+.nav-option.active::before {
+  width: 100%;
+  animation: tubelightPulse 2s infinite;
+}
+
+.nav-option.active::after {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  animation: glowPulse 2s infinite;
+}
+
+@keyframes tubelightPulse {
+  0% {
+    opacity: 0.5;
+    box-shadow: 
+      0 0 2px white,
+      0 0 4px white,
+      0 0 6px white;
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 
+      0 0 4px white,
+      0 0 8px white,
+      0 0 12px white;
+  }
+  100% {
+    opacity: 0.5;
+    box-shadow: 
+      0 0 2px white,
+      0 0 4px white,
+      0 0 6px white;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
 .nav-right {
-  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 1rem;
-  color: white;
-  font-weight: 600;
 }
 
 .username {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #4caf50;
-  animation: glow 2s ease-in-out infinite alternate;
-  margin-right: 0.5rem;
+  color: #ffffff;
+  font-size: 1rem;
 }
 
 .user-dp-emoji {
-  font-size: 1.8rem;
-  cursor: default;
-  user-select: none;
-  transition: transform 0.3s ease;
+  width: 40px;
+  height: 40px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .user-dp-emoji:hover {
-  transform: scale(1.2) rotate(10deg);
+  background: rgba(76, 175, 80, 0.2);
+  transform: scale(1.1);
 }
 
-@keyframes glow {
-  from {
-    text-shadow: 0 0 5px #4caf50, 0 0 10px #4caf50;
+@media (max-width: 768px) {
+  .main-navbar {
+    padding: 0 1rem;
   }
-  to {
-    text-shadow: 0 0 20px #81c784, 0 0 30px #81c784;
-  }
-}
 
-.user-dp {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #ff69b4;
+  .nav-center {
+    gap: 1rem;
+  }
+
+  .nav-option {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .username {
+    display: none;
+  }
 }
