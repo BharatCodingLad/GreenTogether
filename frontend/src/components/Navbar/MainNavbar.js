@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Logo from '../Logo/Logo';
 import './MainNavbar.css';
 
-const MainNavbar = ({ username }) => {
+const MainNavbar = ({ username, currentPage, onPageChange }) => {
     const displayName = username ? username.split('@')[0] : 'User';
     const [activeSection, setActiveSection] = useState('home');
 
@@ -17,15 +17,8 @@ const MainNavbar = ({ username }) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const sectionId = entry.target.id;
-                    switch(sectionId) {
-                        case 'hero':
-                            setActiveSection('home');
-                            break;
-                        case 'about':
-                            setActiveSection('about');
-                            break;
-                        default:
-                            break;
+                    if (sectionId === 'hero') {
+                        setActiveSection('home');
                     }
                 }
             });
@@ -33,24 +26,17 @@ const MainNavbar = ({ username }) => {
 
         const observer = new IntersectionObserver(handleIntersection, observerOptions);
 
-        // Observe the sections
+        // Observe the hero section
         const heroSection = document.getElementById('hero');
-        const aboutSection = document.getElementById('about');
-
         if (heroSection) observer.observe(heroSection);
-        if (aboutSection) observer.observe(aboutSection);
 
         return () => {
             if (heroSection) observer.unobserve(heroSection);
-            if (aboutSection) observer.unobserve(aboutSection);
         };
     }, []);
 
-    const scrollToSection = (sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
+    const handleNavigation = (page) => {
+        onPageChange(page);
     };
 
     return (
@@ -60,21 +46,18 @@ const MainNavbar = ({ username }) => {
             </div>
             <div className="nav-center">
                 <button 
-                    className={`nav-option ${activeSection === 'home' ? 'active' : ''}`}
-                    onClick={() => scrollToSection('hero')}
+                    className={`nav-option ${currentPage === 'home' ? 'active' : ''}`}
+                    onClick={() => handleNavigation('home')}
                 >
                     Home
-                </button>
-                <button 
-                    className={`nav-option ${activeSection === 'about' ? 'active' : ''}`}
-                    onClick={() => scrollToSection('about')}
-                >
-                    About
                 </button>
                 <button className="nav-option">
                     Services
                 </button>
-                <button className="nav-option">
+                <button 
+                    className={`nav-option ${currentPage === 'contact' ? 'active' : ''}`}
+                    onClick={() => handleNavigation('contact')}
+                >
                     Contact
                 </button>
             </div>

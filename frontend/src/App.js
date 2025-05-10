@@ -3,6 +3,8 @@ import Navbar from './components/Navbar/Navbar';
 import MainNavbar from './components/Navbar/MainNavbar';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import ParallaxBackground from './components/ParallaxBackground/ParallaxBackground';
+import Copyright from './components/Copyright/Copyright';
+import Contact from './components/Contact/Contact';
 import './App.css';
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const [username, setUsername] = useState('');
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [currentPage, setCurrentPage] = useState('home');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,6 +39,10 @@ function App() {
 
     const handleMouseMove = (event) => {
         setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
     };
 
     return (
@@ -121,8 +128,18 @@ function App() {
             )}
             {isAuthenticated && isAnimationComplete && (
                 <>
-                    <MainNavbar username={username} />
-                    <ParallaxBackground mouseX={mousePosition.x} mouseY={mousePosition.y} />
+                    <MainNavbar 
+                        username={username} 
+                        currentPage={currentPage}
+                        onPageChange={handlePageChange}
+                    />
+                    {currentPage === 'home' && (
+                        <>
+                            <ParallaxBackground mouseX={mousePosition.x} mouseY={mousePosition.y} />
+                            <Copyright />
+                        </>
+                    )}
+                    {currentPage === 'contact' && <Contact />}
                 </>
             )}
         </div>
