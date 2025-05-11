@@ -26,9 +26,11 @@ const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
     const handleNavigation = (path) => {
         navigate(path);
         onPageChange(path === '/' ? 'home' : path.slice(1));
+        setIsDropdownOpen(false);
     };
 
-    const toggleDropdown = () => {
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
         setIsDropdownOpen(!isDropdownOpen);
     };
 
@@ -42,7 +44,7 @@ const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
     };
 
     const handleViewProfile = () => {
-        console.log('Viewing profile...');
+        navigate('/profile');
         setIsDropdownOpen(false);
     };
 
@@ -81,13 +83,13 @@ const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
                     role="button" 
                     aria-label="User Menu"
                     onClick={toggleDropdown}
+                    tabIndex="0"
                 >
                     🌿
                 </div>
                 {isDropdownOpen && (
                     <div className="dropdown-menu">
                         <button className="dropdown-item" onClick={handleViewProfile}>
-                            <span className="dropdown-icon">🫂</span>
                             <div className="dropdown-text">
                                 <span className="dropdown-label">View Profile</span>
                                 <span className="dropdown-description">Manage your account</span>
@@ -95,7 +97,6 @@ const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
                         </button>
                         <div className="dropdown-divider"></div>
                         <button className="dropdown-item" onClick={handleLogout}>
-                            <span className="dropdown-icon">🏃</span>
                             <div className="dropdown-text">
                                 <span className="dropdown-label">Log Out</span>
                                 <span className="dropdown-description">Sign out of your account</span>
