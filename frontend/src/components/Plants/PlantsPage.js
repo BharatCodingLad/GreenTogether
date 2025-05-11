@@ -10,7 +10,7 @@ import orchidImg from '../../images/perennial-yes-yes-orchid-live-plant-original
 import fiddleLeafImg from '../../images/A5AC95D6-5A97-45C3-B890-5BEDCBB58AF8_800x.webp';
 import lavenderImg from '../../images/360_F_167351986_76neuSGkLjNcovZwsBCAD1ZN5SDIxalv.jpg';
 import aloeVeraImg from '../../images/Aloe-Vera-Website-Front.webp';
-import succulentImg from '../../images/A5AC95D6-5A97-45C3-B890-5BEDCBB58AF8_800x.webp';
+import succulentImg from '../../images/succulent-stockphoto.jpg';
 
 const plants = [
   {
