@@ -9,6 +9,7 @@ import Copyright from './components/Copyright/Copyright';
 import Contact from './components/Contact/Contact';
 import PlantsPage from './components/Plants/PlantsPage';
 import ChatBot from './components/ChatBot/ChatBot';
+import Profile from './components/Profile/Profile';
 import './App.css';
 
 // API base URL
@@ -186,6 +187,7 @@ function App() {
                             } />
                             <Route path="/plants" element={<PlantsPage />} />
                             <Route path="/contact" element={<Contact />} />
+                            <Route path="/profile" element={<Profile />} />
                             <Route path="*" element={<Navigate to="/" replace />} />
                         </Routes>
                         <ChatBot />
