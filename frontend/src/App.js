@@ -8,6 +8,7 @@ import ParallaxBackground from './components/ParallaxBackground/ParallaxBackgrou
 import Copyright from './components/Copyright/Copyright';
 import Contact from './components/Contact/Contact';
 import PlantsPage from './components/Plants/PlantsPage';
+import ChatBot from './components/ChatBot/ChatBot';
 import './App.css';
 
 // API base URL
@@ -187,6 +188,7 @@ function App() {
                             <Route path="/contact" element={<Contact />} />
                             <Route path="*" element={<Navigate to="/" replace />} />
                         </Routes>
+                        <ChatBot />
                     </>
                 ) : (
                     <LoadingScreen active={true} onAnimationComplete={handleAnimationComplete} />
