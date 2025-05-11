@@ -36,6 +36,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/events', require('./routes/events'));
 app.use('/api/initiatives', require('./routes/initiatives'));
+app.use('/api/greenieai', require('./routes/greenieai'));
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../../frontend/build')));

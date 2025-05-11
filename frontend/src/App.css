@@ -1280,6 +1280,7 @@ p {
     margin-bottom: 1rem;
     background: linear-gradient(90deg, #4CAF50, #ff69b4);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: slideUp 0.8s ease forwards;
 }

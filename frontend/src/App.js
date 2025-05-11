@@ -6,6 +6,7 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import ParallaxBackground from './components/ParallaxBackground/ParallaxBackground';
 import Copyright from './components/Copyright/Copyright';
 import Contact from './components/Contact/Contact';
+import ChatBot from './components/ChatBot/ChatBot';
 import './App.css';
 
 // API base URL
@@ -169,6 +170,7 @@ function App() {
                     {currentPage === 'home' && (
                         <>
                             <ParallaxBackground mouseX={mousePosition.x} mouseY={mousePosition.y} />
+                            <ChatBot />
                             <Copyright />
                         </>
                     )}
