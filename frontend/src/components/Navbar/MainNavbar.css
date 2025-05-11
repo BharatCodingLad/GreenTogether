@@ -150,6 +150,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: relative;
 }
 
 .username {
@@ -158,21 +159,116 @@
 }
 
 .user-dp-emoji {
-  width: 40px;
-  height: 40px;
-  background: rgba(76, 175, 80, 0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: rgba(76, 175, 80, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  z-index: 1001;
 }
 
 .user-dp-emoji:hover {
-  background: rgba(76, 175, 80, 0.2);
   transform: scale(1.1);
+  background: rgba(76, 175, 80, 0.2);
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 0.5rem;
+  min-width: 240px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: dropdownFadeIn 0.2s ease-out;
+  z-index: 1000;
+  transform-origin: top right;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.dropdown-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+}
+
+.dropdown-label {
+  font-weight: 500;
+  color: #ffffff;
+  transition: color 0.2s ease;
+}
+
+.dropdown-description {
+  font-size: 0.8rem;
+  color: #a0a0a0;
+  transition: color 0.2s ease;
+}
+
+.dropdown-item:hover .dropdown-label {
+  color: #4CAF50;
+}
+
+.dropdown-item:hover .dropdown-description {
+  color: #ffffff;
+}
+
+.dropdown-icon {
+  font-size: 1.4rem;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 8px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 768px) {
