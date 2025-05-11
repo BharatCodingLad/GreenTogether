@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import './MainNavbar.css';
 
@@ -6,6 +7,8 @@ const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
     const displayName = username ? username.split('@')[0] : 'User';
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -20,8 +23,9 @@ const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
         };
     }, []);
 
-    const handleNavigation = (page) => {
-        onPageChange(page);
+    const handleNavigation = (path) => {
+        navigate(path);
+        onPageChange(path === '/' ? 'home' : path.slice(1));
     };
 
     const toggleDropdown = () => {
@@ -29,21 +33,15 @@ const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
     };
 
     const handleLogout = () => {
-        // Clear local storage
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        
-        // Close dropdown
         setIsDropdownOpen(false);
-        
-        // Notify parent component
         if (onLogout) {
             onLogout();
         }
     };
 
     const handleViewProfile = () => {
-        // Add view profile logic here
         console.log('Viewing profile...');
         setIsDropdownOpen(false);
     };
@@ -51,21 +49,26 @@ const MainNavbar = ({ username, currentPage, onPageChange, onLogout }) => {
     return (
         <nav className="main-navbar">
             <div className="nav-left">
-                <Logo />
+                <div className="nav-logo" onClick={() => handleNavigation('/')}>
+                    <Logo />
+                </div>
             </div>
             <div className="nav-center">
                 <button 
-                    className={`nav-option ${currentPage === 'home' ? 'active' : ''}`}
-                    onClick={() => handleNavigation('home')}
+                    className={`nav-option ${location.pathname === '/' ? 'active' : ''}`}
+                    onClick={() => handleNavigation('/')}
                 >
                     Home
                 </button>
-                <button className="nav-option">
+                <button 
+                    className={`nav-option ${location.pathname === '/plants' ? 'active' : ''}`}
+                    onClick={() => handleNavigation('/plants')}
+                >
                     Services
                 </button>
                 <button 
-                    className={`nav-option ${currentPage === 'contact' ? 'active' : ''}`}
-                    onClick={() => handleNavigation('contact')}
+                    className={`nav-option ${location.pathname === '/contact' ? 'active' : ''}`}
+                    onClick={() => handleNavigation('/contact')}
                 >
                     Contact
                 </button>
