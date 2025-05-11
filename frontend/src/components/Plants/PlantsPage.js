@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Filter, X, ChevronDown } from 'lucide-react';
 import './PlantsPage.css';
+import axios from 'axios';
 
 // Import images
 import monsteraImg from '../../images/81P480xAn9L.jpg';
@@ -12,94 +13,102 @@ import lavenderImg from '../../images/360_F_167351986_76neuSGkLjNcovZwsBCAD1ZN5S
 import aloeVeraImg from '../../images/Aloe-Vera-Website-Front.webp';
 import succulentImg from '../../images/succulent-stockphoto.jpg';
 
-const plants = [
+const initialPlants = [
   {
     id: 1,
     name: 'Monstera Deliciosa',
-    price: 49.99,
+    price: 399,
     image: monsteraImg,
     category: 'Indoor',
     difficulty: 'Easy',
     light: 'Medium',
     description: 'A popular tropical plant known for its distinctive split leaves.',
-    care: 'Water weekly, bright indirect light'
+    care: 'Water weekly, bright indirect light',
+    clicks: 0
   },
   {
     id: 2,
     name: 'Snake Plant',
-    price: 29.99,
+    price: 249,
     image: snakePlantImg,
     category: 'Indoor',
     difficulty: 'Very Easy',
     light: 'Low',
     description: 'A hardy plant perfect for beginners, known for its air-purifying qualities.',
-    care: 'Water every 2-3 weeks, low to bright light'
+    care: 'Water every 2-3 weeks, low to bright light',
+    clicks: 0
   },
   {
     id: 3,
     name: 'Peace Lily',
-    price: 39.99,
+    price: 299,
     image: peaceLilyImg,
     category: 'Indoor',
     difficulty: 'Easy',
     light: 'Medium',
     description: 'Elegant plant with glossy leaves and white flowers.',
-    care: 'Keep soil moist, medium indirect light'
+    care: 'Keep soil moist, medium indirect light',
+    clicks: 0
   },
   {
     id: 4,
     name: 'Aloe Vera',
-    price: 19.99,
+    price: 199,
     image: aloeVeraImg,
     category: 'Indoor',
     difficulty: 'Easy',
     light: 'Bright',
     description: 'Medicinal succulent with thick, fleshy leaves.',
-    care: 'Water sparingly, bright direct light'
+    care: 'Water sparingly, bright direct light',
+    clicks: 0
   },
   {
     id: 5,
     name: 'Fiddle Leaf Fig',
-    price: 59.99,
+    price: 399,
     image: fiddleLeafImg,
     category: 'Indoor',
     difficulty: 'Medium',
     light: 'Bright',
     description: 'Trendy plant with large, violin-shaped leaves.',
-    care: 'Water when top soil is dry, bright indirect light'
+    care: 'Water when top soil is dry, bright indirect light',
+    clicks: 0
   },
   {
     id: 6,
     name: 'Lavender',
-    price: 24.99,
+    price: 249,
     image: lavenderImg,
     category: 'Outdoor',
     difficulty: 'Easy',
     light: 'Bright',
     description: 'Fragrant flowering plant perfect for gardens.',
-    care: 'Well-draining soil, full sun'
+    care: 'Well-draining soil, full sun',
+    clicks: 0
   },
   {
     id: 7,
     name: 'Succulent Collection',
-    price: 34.99,
+    price: 299,
     image: succulentImg,
     category: 'Indoor',
     difficulty: 'Very Easy',
     light: 'Bright',
     description: 'Set of 3 low-maintenance succulents.',
-    care: 'Water sparingly, bright light'
+    care: 'Water sparingly, bright light',
+    clicks: 0
   },
   {
     id: 8,
     name: 'Orchid',
-    price: 44.99,
+    price: 349,
     image: orchidImg,
     category: 'Indoor',
     difficulty: 'Hard',
     light: 'Medium',
     description: 'Exotic flowering plant with delicate blooms.',
-    care: 'High humidity, medium indirect light'
+    care: 'High humidity, medium indirect light',
+    clicks: 0
   }
 ];
 
@@ -111,8 +120,68 @@ function PlantsPage() {
     category: 'all',
     difficulty: 'all',
     light: 'all',
-    priceRange: [0, 100]
+    priceRange: [200, 400]
   });
+  const [plants, setPlants] = useState(initialPlants);
+  const [processing, setProcessing] = useState(false);
+
+  const handleAddToCart = async (plant) => {
+    if (processing) return;
+    
+    try {
+      setProcessing(true);
+      
+      // Update click count
+      const updatedPlants = plants.map(p => {
+        if (p.id === plant.id) {
+          return { ...p, clicks: p.clicks + 1 };
+        }
+        return p;
+      });
+      setPlants(updatedPlants);
+
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Dummy purchase data
+      const dummyPurchase = {
+        plantId: plant.id,
+        plantName: plant.name,
+        amount: plant.price,
+        creditsEarned: Math.floor(plant.price * 0.1),
+        clicks: plant.clicks + 1,
+        date: new Date().toISOString()
+      };
+
+      // Store in localStorage for persistence
+      const existingPurchases = JSON.parse(localStorage.getItem('purchases') || '[]');
+      existingPurchases.push(dummyPurchase);
+      localStorage.setItem('purchases', JSON.stringify(existingPurchases));
+
+      // Update user credits in localStorage
+      const userData = JSON.parse(localStorage.getItem('user') || '{}');
+      userData.credits = (userData.credits || 0) + dummyPurchase.creditsEarned;
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      alert(`Successfully purchased ${plant.name}! You earned ${dummyPurchase.creditsEarned} green credits.`);
+    } catch (err) {
+      alert('Failed to process purchase. Please try again.');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const handleViewDetails = (plant) => {
+    // Update click count when viewing details
+    const updatedPlants = plants.map(p => {
+      if (p.id === plant.id) {
+        return { ...p, clicks: p.clicks + 1 };
+      }
+      return p;
+    });
+    setPlants(updatedPlants);
+    alert(`Viewing details for ${plant.name} (Clicked ${plant.clicks + 1} times)`);
+  };
 
   const filteredPlants = plants
     .filter(plant => {
@@ -132,6 +201,8 @@ function PlantsPage() {
           return b.price - a.price;
         case 'name':
           return a.name.localeCompare(b.name);
+        case 'popularity':
+          return b.clicks - a.clicks;
         case 'difficulty':
           const difficultyOrder = { 'Very Easy': 0, 'Easy': 1, 'Medium': 2, 'Hard': 3 };
           return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
@@ -139,15 +210,6 @@ function PlantsPage() {
           return 0;
       }
     });
-
-  const handleAddToCart = (plant) => {
-    alert(`Added ${plant.name} to cart!`);
-  };
-
-  const handleViewDetails = (plant) => {
-    alert(`Viewing details for ${plant.name}`);
-    // TODO: Implement plant details view
-  };
 
   return (
     <div className="plants-marketplace">
@@ -172,6 +234,7 @@ function PlantsPage() {
               <option value="name">Sort by Name</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="price-desc">Price: High to Low</option>
+              <option value="popularity">Most Popular</option>
               <option value="difficulty">Difficulty Level</option>
             </select>
             <ChevronDown size={16} className="dropdown-icon" />
@@ -233,8 +296,8 @@ function PlantsPage() {
               <div className="price-inputs">
                 <input
                   type="number"
-                  min="0"
-                  max="100"
+                  min="200"
+                  max="400"
                   value={filters.priceRange[0]}
                   onChange={(e) => setFilters({
                     ...filters,
@@ -245,8 +308,8 @@ function PlantsPage() {
                 <span>-</span>
                 <input
                   type="number"
-                  min="0"
-                  max="100"
+                  min="200"
+                  max="400"
                   value={filters.priceRange[1]}
                   onChange={(e) => setFilters({
                     ...filters,
@@ -257,8 +320,8 @@ function PlantsPage() {
               </div>
               <input
                 type="range"
-                min="0"
-                max="100"
+                min="200"
+                max="400"
                 value={filters.priceRange[1]}
                 onChange={(e) => setFilters({
                   ...filters,
@@ -280,7 +343,10 @@ function PlantsPage() {
                 <p className="plant-description">{plant.description}</p>
                 <div className="plant-details">
                   <span className="plant-care">{plant.care}</span>
-                  <span className="plant-price">${plant.price.toFixed(2)}</span>
+                  <span className="plant-price">₹{plant.price}</span>
+                </div>
+                <div className="plant-popularity">
+                  <span className="click-count">👆 {plant.clicks} clicks</span>
                 </div>
                 <div className="plant-actions">
                   <button 
@@ -290,10 +356,11 @@ function PlantsPage() {
                     View Details
                   </button>
                   <button 
-                    className="add-to-cart"
+                    className={`buy-now ${processing ? 'processing' : ''}`}
                     onClick={() => handleAddToCart(plant)}
+                    disabled={processing}
                   >
-                    Add to Cart
+                    {processing ? 'Processing...' : 'Buy Now'}
                   </button>
                 </div>
               </div>
