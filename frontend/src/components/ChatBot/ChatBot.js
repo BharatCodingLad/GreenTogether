@@ -74,6 +74,7 @@ const ChatBot = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
+  const textInputRef = useRef(null);
 
   // Scroll to bottom on new message
   useEffect(() => {
@@ -106,6 +107,19 @@ const ChatBot = () => {
       setTimeout(() => setGreet(false), 400);
     }
   }, [messages]);
+
+  // Expose a global function to focus the chat input
+  useEffect(() => {
+    window.focusChatInput = () => {
+      setOpen(true);
+      setTimeout(() => {
+        if (textInputRef.current) textInputRef.current.focus();
+      }, 100);
+    };
+    return () => {
+      if (window.focusChatInput) delete window.focusChatInput;
+    };
+  }, []);
 
   const getPlantInfo = (imageName) => {
     return PLANT_DATA[imageName] || {
@@ -244,44 +258,17 @@ const ChatBot = () => {
         }}
       >
         <div className="chatbot-header">
-          <button className="chatbot-history-btn"><FiClock /></button>
           <span className="chatbot-header-title">GreenieAI</span>
           <button className="chatbot-close" onClick={() => setOpen(false)}><FiX /></button>
         </div>
         <div className="chatbot-body">
+          <div className="chatbot-history">
           {showGreeting ? (
             <div className="chatbot-startup">
               <div className="chatbot-greeting">👋 Welcome to GreenieAI!</div>
-              <form className="chatbot-input-row" onSubmit={handleSend}>
-                <div className="chatbot-input-wrapper">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    style={{ display: 'none' }}
-                    ref={fileInputRef}
-                  />
-                  <button
-                    type="button"
-                    className="chatbot-img-btn"
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    <FiImage />
-                  </button>
-                  <input
-                    type="text"
-                    placeholder="Type your message..."
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    disabled={isTyping}
-                  />
-                  <button className="chatbot-send-btn" type="submit" disabled={isTyping}><FiSend size={20} /></button>
-                </div>
-              </form>
             </div>
           ) : (
             <>
-              <div className="chatbot-history">
                 {messages.map((msg, idx) => (
                   <div key={msg.id || idx} className={`chatbot-msg ${msg.sender}`}>
                     {msg.image && (
@@ -300,6 +287,8 @@ const ChatBot = () => {
                   </div>
                 )}
                 <div ref={chatEndRef} />
+              </>
+            )}
               </div>
               <form className="chatbot-input-row" onSubmit={handleSend}>
                 <div className="chatbot-input-wrapper">
@@ -335,14 +324,13 @@ const ChatBot = () => {
                     value={input}
                     onChange={e => setInput(e.target.value)}
                     disabled={isTyping}
+                    ref={textInputRef}
                   />
                   <button className="chatbot-send-btn" type="submit" disabled={isTyping}>
                     <IoSend size={20} />
                   </button>
                 </div>
               </form>
-            </>
-          )}
         </div>
       </div>
       {!open && (

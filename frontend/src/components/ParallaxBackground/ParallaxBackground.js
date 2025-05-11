@@ -7,6 +7,12 @@ const ParallaxBackground = () => {
     document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleGetStarted = () => {
+    if (window.focusChatInput) {
+      window.focusChatInput();
+    }
+  };
+
   return (
     <div className="parallax-wrapper" id="parallax">
       {/* First Section - Hero */}
@@ -26,7 +32,7 @@ const ParallaxBackground = () => {
             a difference in building a better world for tomorrow.
           </p>
           <div className="intro-buttons">
-            <button className="intro-btn primary">Get Started</button>
+            <button className="intro-btn primary" onClick={handleGetStarted}>Get Started</button>
             <button onClick={scrollToAbout} className="intro-btn secondary">Learn More</button>
           </div>
           <div className="typing-wrapper">
